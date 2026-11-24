@@ -48,7 +48,7 @@ h1 em,h2 em{font-style:italic;font-weight:400;color:var(--acc)}
 .btn:active{transform:scale(.97)}
 
 /* header */
-.top{position:sticky;top:0;z-index:50;background:rgba(250,246,242,.88);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:border-color .3s}
+.top{position:sticky;top:0;z-index:500;background:rgba(250,246,242,.97);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:border-color .3s}
 .top.scrolled{border-color:var(--line)}
 .top .wrap{display:flex;align-items:center;gap:26px;height:78px}
 .logo{display:flex;flex-direction:column;line-height:1}
@@ -84,7 +84,7 @@ h1 em,h2 em{font-style:italic;font-weight:400;color:var(--acc)}
 .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
 .stage{position:relative;aspect-ratio:auto;height:clamp(420px,calc(100vh - 130px),800px);height:clamp(420px,calc(100dvh - 130px),800px);border-radius:34px;overflow:hidden;background:#e9e0d8;box-shadow:0 50px 90px -50px rgba(34,32,29,.55);opacity:0;cursor:zoom-in;transition:box-shadow .3s}
 .stage>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%;z-index:0;transition:opacity .6s ease}
-.stage>img.top{z-index:1}
+.stage>img.is-front{z-index:1}
 .stage>img.off{opacity:0}
 @media (hover:hover){.ready .stage:hover{box-shadow:0 0 0 6px rgba(255,255,255,.85),0 50px 90px -50px rgba(34,32,29,.6)}}
 .stage-cap{position:absolute;z-index:2;left:18px;bottom:18px;display:flex;align-items:center;gap:10px;padding:8px 16px 8px 8px;border-radius:999px;background:rgba(255,253,251,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-size:13px;font-weight:500;pointer-events:none}
@@ -323,6 +323,19 @@ footer .soc{margin-left:auto;display:flex;gap:22px}
   .v-photo{min-height:calc(100dvh - 60px)}
 }
 @media (prefers-reduced-motion:reduce){*{transition-duration:.01s!important;animation:none!important}}
+
+/* V6 24.11: soft seams, side arrows */
+:root{--edge:linear-gradient(180deg,var(--bg) 0,rgba(246,241,234,0) 140px,rgba(246,241,234,0) calc(100% - 140px),var(--bg) 100%)}
+.hero::before{-webkit-mask-image:linear-gradient(180deg,#000 calc(100% - 160px),transparent);mask-image:linear-gradient(180deg,#000 calc(100% - 160px),transparent)}
+.svc{background:var(--edge),radial-gradient(50% 45% at 0% 12%,rgba(240,222,204,.6),transparent 70%),radial-gradient(45% 45% at 100% 88%,rgba(214,228,214,.6),transparent 70%),var(--paper)}
+.visit{background:var(--edge),radial-gradient(45% 50% at 100% 12%,rgba(232,222,206,.55),transparent 70%),radial-gradient(40% 50% at 0% 88%,rgba(238,224,210,.6),transparent 70%),var(--paper)}
+footer{background:var(--bg);border-top:0}
+.car{position:relative;padding:0 64px}
+.car-side{position:absolute;top:calc(50% - 26px);margin-top:-9px;z-index:3}
+.car-side.l{left:0}.car-side.r{right:0}
+@media (max-width:900px),(hover:none){.car{padding:0}.car-side{display:none}}
+@media (max-width:900px){.hero{padding-bottom:28px}.svc.sec{padding:44px 0 40px}}
+@media (max-width:900px){:root{--edge:linear-gradient(180deg,var(--bg) 0,rgba(246,241,234,0) 90px,rgba(246,241,234,0) calc(100% - 90px),var(--bg) 100%)}}
 </style>
 </head>
 <body>
@@ -332,8 +345,7 @@ footer .soc{margin-left:auto;display:flex;gap:22px}
     <a class="logo" href="#farbe" aria-label="Lirelle Nagelatelier"><b>Lirelle</b><span>Nagelatelier</span></a>
     <nav class="nav" aria-label="Seiten">
       <a href="#farbe">Farbkarte</a>
-      <a href="#leistungen">Hände &amp; Füsse</a>
-      <a href="#arbeiten">Arbeiten</a>
+      <a href="#leistungen">Angebot</a>
       <a href="#stimmen">Stimmen</a>
       <a href="#besuch">Anfahrt</a>
     </nav>
@@ -347,8 +359,8 @@ footer .soc{margin-left:auto;display:flex;gap:22px}
 <section class="hero gate" id="farbe">
   <div class="wrap">
     <div class="hero-text">
-      <a class="stars" href="#stimmen"><i>★★★★★</i>4,9 · 186 Bewertungen</a>
-      <h1><span class="w">Welche</span> <span class="w">Farbe</span> <span class="w"><em>darf’s</em></span> <span class="w">sein?</span></h1>
+      <a class="stars" href="#stimmen"><i>★★★★★</i>5,0 · 186 Bewertungen</a>
+      <h1><span class="w">Heute</span> <span class="w">in</span> <span class="w">welchem</span> <span class="w"><em>Ton?</em></span></h1>
       <p class="lead">Tippen Sie auf einen Farbton – das grosse Foto zeigt <b>ein Set in genau dieser Farbe.</b></p>
       <div class="chart">
         <div class="chart-h"><span class="kicker">Farbkarte</span><strong id="pickName">Nude</strong></div>
@@ -371,7 +383,7 @@ footer .soc{margin-left:auto;display:flex;gap:22px}
 <section class="sec svc gate" id="leistungen">
   <div class="wrap">
     <div class="head rv">
-      <h2>Hände <em>&amp;</em> Füsse</h2>
+      <h2>Was wir <em>machen</em></h2>
       <p>Nagel- und Fusspflege bei Lina – vom klassischen Lack bis zur Verlängerung mit Gel oder Acryl. Termine telefonisch oder per WhatsApp.</p>
     </div>
     <div class="svc-grid">
@@ -406,25 +418,17 @@ footer .soc{margin-left:auto;display:flex;gap:22px}
   </div>
 </section>
 
-<section class="sec gate" id="arbeiten">
-  <div class="wrap head rv">
-    <h2>Von <em>Nude</em> bis Schwarz</h2>
-    <p>Sets nach Farbe sortiert. Ziehen Sie den Regler über den Farbverlauf – oder wischen Sie durch die Bilder.</p>
-  </div>
-  <div class="ribbon rv" id="ribbon"></div>
-  <div class="track rv" id="track" role="slider" tabindex="0" aria-label="Farbverlauf" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="thumb" id="thumb"></span></div>
-  <div class="track-l rv"><span>hell</span><span>kräftig</span><span>dunkel</span></div>
-</section>
-
 <section class="sec voices gate" id="stimmen">
   <div class="wrap v-grid">
     <div class="rv">
-      <a class="score" href="#stimmen" aria-label="4,9 von 5 Sternen">4,9</a>
+      <a class="score" href="#stimmen" aria-label="5,0 von 5 Sternen">5,0</a>
       <p class="score-sub">Durchschnitt aus <b>186 Bewertungen</b></p>
-      <div class="car-nav"><button type="button" class="car-btn" id="carPrev" aria-label="Vorherige Bewertung"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" class="car-btn" id="carNext" aria-label="Nächste Bewertung"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button></div>
+      
     </div>
     <div class="car rv" id="car">
+      <button type="button" class="car-btn car-side l" id="carPrev" aria-label="Vorherige Bewertung"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 5l-7 7 7 7"/></svg></button>
       <div class="car-track" id="carTrack"></div>
+      <button type="button" class="car-btn car-side r" id="carNext" aria-label="Nächste Bewertung"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg></button>
       <div class="car-dots" id="carDots"></div>
     </div>
   </div>
@@ -434,7 +438,7 @@ footer .soc{margin-left:auto;display:flex;gap:22px}
   <div class="wrap v2">
     <div class="label rv">
       <p class="kicker">Anfahrt</p>
-      <h2>Ihre <em>Farbe</em> wartet in Flawil</h2>
+      <h2>Bis <em>bald</em> in Flawil</h2>
       <p class="addr"><a href="#besuch">Lirelleweg 4<br>9230 Flawil SG</a></p>
       <div class="days" id="days" role="tablist" aria-label="Öffnungszeiten"></div>
       <div class="hours" id="hours"></div>
@@ -467,7 +471,6 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
 /* Farbkarte */
 const COLORS=[
  {k:'nude',n:'Nude',img:'nude',hex:'#D9B49A'},
- {k:'french',n:'French',img:'french',hex:'#EBD3CF'},
  {k:'rose',n:'Rosé',img:'rose',hex:'#EFB3C4'},
  {k:'silber',n:'Silber',img:'silber',hex:'#B9B9C2'},
  {k:'kirsch',n:'Kirschrot',img:'kirsch',hex:'#C2142B'},
@@ -484,7 +487,7 @@ COLORS.forEach(c=>{
   b.addEventListener('click',()=>choose(c.k));sws.appendChild(b);
 });
 const sA=$('#sA'),sB=$('#sB');let sTop=sA,fading=false,want=null;
-sA.classList.add('top');
+sA.classList.add('is-front');
 function setStage(c){
   if(fading){want=c;return}
   if(sTop.dataset.src===c.img)return;
@@ -492,7 +495,7 @@ function setStage(c){
   const show=()=>{
     if(cur!==c){fading=false;return}
     fading=true;
-    nxt.classList.add('off','top');old.classList.remove('top');
+    nxt.classList.add('off','is-front');old.classList.remove('is-front');
     void nxt.offsetWidth;nxt.classList.remove('off');
     setTimeout(()=>{old.classList.add('off');sTop=nxt;fading=false;if(want&&want!==c){const w=want;want=null;setStage(w)}else want=null},650);
   };
@@ -523,26 +526,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB()});
 const keyOpen=(el,fn)=>{el.addEventListener('click',fn);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();fn()}})};
 keyOpen($('#stage'),()=>openLB('img/c/'+cur.img+'.jpg'));
 keyOpen($('#vphoto'),()=>openLB('img/c/french.jpg'));
-
-/* gallery ribbon, sorted light to dark */
-const SHOTS=[['nude','#D9B49A'],['french','#EBD3CF'],['rose','#EFB3C4'],['studio','#F2C7CF'],['silber','#B9B9C2'],['kirsch','#C2142B'],['pedi','#6E0F1C'],['bordeaux','#5E0F22'],['violett','#7A6AA8'],['schwarz','#2A2522']];
-const rib=$('#ribbon');
-SHOTS.forEach(([f,t])=>{const d=document.createElement('button');d.type='button';d.className='shot';d.dataset.t=t;d.style.setProperty('--i',SHOTS.findIndex(x=>x[0]===f)%6);d.setAttribute('aria-label','Foto gross ansehen');d.innerHTML='<img src="img/c/'+f+'.jpg" alt="Nageldesign – Symbolbild" loading="lazy" draggable="false">';d.addEventListener('click',()=>{if(rib.dataset.moved==='1')return;openLB('img/c/'+f+'.jpg')});rib.appendChild(d)});
-let dx=0,sl=0,down=false;
-rib.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse')return;down=true;dx=e.clientX;sl=rib.scrollLeft;rib.dataset.moved='0'});
-window.addEventListener('pointermove',e=>{if(!down)return;const d=e.clientX-dx;if(Math.abs(d)>5){rib.dataset.moved='1';rib.classList.add('drag')}rib.scrollLeft=sl-d});
-window.addEventListener('pointerup',()=>{if(!down)return;down=false;rib.classList.remove('drag');setTimeout(()=>rib.dataset.moved='0',50)});
-const track=$('#track'),thumb=$('#thumb'),arb=$('#arbeiten');
-function syncThumb(){const m=rib.scrollWidth-rib.clientWidth;const p=m>0?rib.scrollLeft/m:0;thumb.style.left=(p*100)+'%';track.setAttribute('aria-valuenow',Math.round(p*100))}
-function tint(){const r=rib.getBoundingClientRect();const cx=r.left+r.width/2;let best=null,bd=1e9;rib.querySelectorAll('.shot').forEach(s=>{const b=s.getBoundingClientRect();const d=Math.abs(b.left+b.width/2-cx);if(d<bd){bd=d;best=s}});if(best)arb.style.setProperty('--tint',best.dataset.t)}
-let rafT=0;rib.addEventListener('scroll',()=>{if(rafT)return;rafT=requestAnimationFrame(()=>{rafT=0;syncThumb();tint()})},{passive:true});
-let tdrag=false;
-function trackTo(x,smooth){const r=track.getBoundingClientRect();const p=Math.min(1,Math.max(0,(x-r.left)/r.width));rib.scrollTo({left:p*(rib.scrollWidth-rib.clientWidth),behavior:smooth?'smooth':'auto'})}
-track.addEventListener('pointerdown',e=>{tdrag=true;track.setPointerCapture(e.pointerId);trackTo(e.clientX,true)});
-track.addEventListener('pointermove',e=>{if(tdrag)trackTo(e.clientX,false)});
-track.addEventListener('pointerup',()=>tdrag=false);track.addEventListener('pointercancel',()=>tdrag=false);
-track.addEventListener('keydown',e=>{if(e.key==='ArrowRight')rib.scrollBy({left:340,behavior:'smooth'});if(e.key==='ArrowLeft')rib.scrollBy({left:-340,behavior:'smooth'})});
-syncThumb();tint();
 
 /* voices (fictional) */
 const REV=[
